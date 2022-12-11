@@ -9,16 +9,22 @@ import java.util.Map;
 
 public class HelloWorldTest {
     @Test
-    public void HomeworkEx5() {
+    public void HomeworkEx6() {
+        Map <String, String>  headers = new HashMap<>();
+        headers.put ("myHeader1", "myValue1");
 
 
-        JsonPath response = RestAssured
+
+        Response response = RestAssured
                 .given()
-                .get("https://playground.learnqa.ru/api/get_json_homework")
-                .jsonPath();
+                .redirects()
+                .follow(false)
+                .get("https://playground.learnqa.ru/api/long_redirect")
+                .andReturn();
+        response.prettyPrint();
 
-        String message = response.get("messages[1].message");
-        System.out.println(message);
+        String locationHeader = response.getHeader("Location");
+        System.out.println(locationHeader);
 
 
 
