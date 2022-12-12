@@ -7,24 +7,40 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.requestSpecification;
+
 public class HelloWorldTest {
     @Test
-    public void HomeworkEx6() {
-        Map <String, String>  headers = new HashMap<>();
-        headers.put ("myHeader1", "myValue1");
+    public void HomeworkEx7() {
+
+
+        String link = "https://playground.learnqa.ru/api/long_redirect";
+
+        int statusCode;
+        do {
+            Response response = RestAssured
+                    .given()
+                    .redirects()
+                    .follow(false)
+
+                    .when()
+                    .get(link);
+
+                statusCode = response.getStatusCode();
 
 
 
-        Response response = RestAssured
-                .given()
-                .redirects()
-                .follow(false)
-                .get("https://playground.learnqa.ru/api/long_redirect")
-                .andReturn();
-        response.prettyPrint();
+             String locationHeader = response.getHeader("Location");
+            link = locationHeader;
 
-        String locationHeader = response.getHeader("Location");
-        System.out.println(locationHeader);
+        System.out.println(statusCode);
+        System.out.println(link);
+
+        }
+        while (statusCode == 301);
+
+
 
 
 
