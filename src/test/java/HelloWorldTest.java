@@ -12,40 +12,43 @@ import static io.restassured.RestAssured.requestSpecification;
 
 public class HelloWorldTest {
     @Test
-    public void HomeworkEx7() {
+
+        public void testRestAssured() throws InterruptedException {
 
 
-        String link = "https://playground.learnqa.ru/api/long_redirect";
+            JsonPath responseFirstRequest = RestAssured
 
-        int statusCode;
-        do {
-            Response response = RestAssured
+                    .get( "https://playground.learnqa.ru/ajax/api/longtime_job")
+                    .jsonPath();
+            String TokenData = responseFirstRequest.get("token");
+            int Timer = responseFirstRequest.get("seconds");
+            System.out.println(TokenData);
+            System.out.println(Timer);
+
+            Map<String, String> Token1 = new HashMap<>();
+            Token1.put("token", TokenData);
+            //if (responseCookie!=null){
+            //     cookies.put("auth_cookie", responseCookie);
+            // }
+
+            Thread.sleep(Timer*1000);
+
+
+            Response responseSecondRequest = RestAssured
                     .given()
-                    .redirects()
-                    .follow(false)
-
-                    .when()
-                    .get(link);
-
-                statusCode = response.getStatusCode();
+                    .queryParams(Token1)
+                    .get("https://playground.learnqa.ru/ajax/api/longtime_job")
+                    .andReturn();
+            responseSecondRequest.print();
+            System.out.println(TokenData);
 
 
 
-             String locationHeader = response.getHeader("Location");
-            link = locationHeader;
 
-        System.out.println(statusCode);
-        System.out.println(link);
+
+
+
+
 
         }
-        while (statusCode == 301);
-
-
-
-
-
-
-
-
-    }
 }
