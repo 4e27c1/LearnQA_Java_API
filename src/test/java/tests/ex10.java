@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -19,14 +20,15 @@ public class ex10 {
 
         Response response = RestAssured
                 .given()
-                .get("https://playground.learnqa.ru/api/homework_cookie")
-
+                .get("https://playground.learnqa.ru/api/homework_header")
+                //.prettyPeek()
                 .andReturn();
 
-        String cookie_value = response.getCookie("Homework");
-        System.out.println("cookie value is " + cookie_value);
+        String header_value = response.getHeader("x-secret-homework-header");
+        System.out.println("cookie value has " + header_value);
+        System.out.println(response.getBody().asString());
 
-         assertTrue(cookie_value!=null, "Cookie value is null");
+         assertTrue(header_value!=null, "Header value doesnt contais secret value");
 
              }
 
