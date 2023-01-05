@@ -155,7 +155,7 @@ public class UserRegisterTest extends BaseTestcase {
 
 
         Response responseRegWithLongName = apiCoreRequests
-                .makePOSTRequestWithShortName(
+                .makePOSTRequestWithLongName(
                         "https://playground.learnqa.ru/api/user/",
                         userData
                 );

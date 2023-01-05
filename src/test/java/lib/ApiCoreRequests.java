@@ -44,7 +44,7 @@ public class ApiCoreRequests {
 
 
     }
-    @Step("Make POST-request")
+    @Step("Make POST-request for authorization")
     public Response makePostRequest(String url, Map<String,String> authData) {
         return given()
                 .filter(new AllureRestAssured())
@@ -169,5 +169,15 @@ public class ApiCoreRequests {
                 .post("https://playground.learnqa.ru/api/user/")
                 .andReturn();
 
+    }
+    @Step("Get User info with wrong auth")
+    public Response makeRequestForUserInfo(String url, String header, String cookie, int eee){
+        return given()
+                .filter(new AllureRestAssured())
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                //.queryParam(String.valueOf(eee))
+                .get("https://playground.learnqa.ru/api/user/"+eee)
+                .andReturn();
     }
 }
