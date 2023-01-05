@@ -5,6 +5,7 @@ import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
@@ -50,7 +51,123 @@ public class ApiCoreRequests {
                 .body(authData)
                 .post(url)
                 .andReturn();
+    }
 
+    @Step ("POSt request with existing email")
+    public Response makeRequestWithExistingEmail (String url,  Map<String,String> userData){
+        return given()
+                .filter(new AllureRestAssured())
+                .body(userData)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
+    }
+
+    @Step("POST request with unique email")
+    public Response makeRequestWithUniqueEmail(String url, Map<String,String> dataParam){
+        return given()
+                .filter(new AllureRestAssured())
+                .body(dataParam)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
+
+    }
+    @Step("POST request with broken email")
+    public Response makeRequestWithBrokenEmail(String url, Map<String,String> data) {
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
+    }
+    @Step("Make POST request registration without email")
+    public Response makePostRequestWithoutEmail(String url,Map<String, String> data) {
+        Map<String, String> dataP = new HashMap<>();
+        dataP.put("password", "123");
+        dataP.put("username", "learnqa");
+        dataP.put("firstName", "learnqa");
+        dataP.put("lastName", "learnqa");
+        return given()
+                .filter(new AllureRestAssured())
+
+                .body(dataP)
+                .post(url)
+                .andReturn();
+    }
+    @Step("Make POST request registration without pass")
+    public Response makePostRequestWithoutPass(String url,Map<String, String> data) {
+        Map<String, String> dataP = new HashMap<>();
+        dataP.put("email", DataGenerator.getRandomEmail());
+        dataP.put("username", "learnqa");
+        dataP.put("firstName", "learnqa");
+        dataP.put("lastName", "learnqa");
+        return given()
+                .filter(new AllureRestAssured())
+
+                .body(dataP)
+                .post(url)
+                .andReturn();
+    }
+    @Step("Make POST request registration without username")
+    public Response makePostRequestWithoutUsername(String url,Map<String, String> data) {
+        Map<String, String> dataP = new HashMap<>();
+        dataP.put("email", DataGenerator.getRandomEmail());
+        dataP.put("password", "123");
+        dataP.put("firstName", "learnqa");
+        dataP.put("lastName", "learnqa");
+        return given()
+                .filter(new AllureRestAssured())
+
+                .body(dataP)
+                .post(url)
+                .andReturn();
+    }
+    @Step("Make POST request registration without firstName")
+    public Response makePostRequestWithoutFirstName(String url,Map<String, String> data) {
+        Map<String, String> dataP = new HashMap<>();
+        dataP.put("email", DataGenerator.getRandomEmail());
+        dataP.put("password", "123");
+        dataP.put("username", "learnqa");
+        dataP.put("lastName", "learnqa");
+        return given()
+                .filter(new AllureRestAssured())
+
+                .body(dataP)
+                .post(url)
+                .andReturn();
+    }
+    @Step("Make POST request registration without last name")
+    public Response makePostRequestWithoutLastName(String url,Map<String, String> data) {
+        Map<String, String> dataP = new HashMap<>();
+        dataP.put("email", DataGenerator.getRandomEmail());
+        dataP.put("password", "123");
+        dataP.put("firstName", "learnqa");
+        dataP.put("username", "learnqa");
+        return given()
+                .filter(new AllureRestAssured())
+
+                .body(dataP)
+                .post(url)
+                .andReturn();
+    }
+
+    @Step ("make request with short name")
+    public Response makePOSTRequestWithShortName(String url, Map<String,String> data){
+
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
+
+    }
+    @Step ("make request with long name")
+    public Response makePOSTRequestWithLongName(String url, Map<String,String> data){
+
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
 
     }
 }
