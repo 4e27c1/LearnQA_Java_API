@@ -220,4 +220,23 @@ public class ApiCoreRequests {
                 .put("https://playground.learnqa.ru/api/user/"+eee)
                 .andReturn();
         }
+
+        @Step("Delete user id=2 with auth")
+    public Response makeDeleteRequestForUser2(String url, String header, String cookie){
+        return given()
+                .filter(new AllureRestAssured())
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                .delete("https://playground.learnqa.ru/api/user/2")
+                .andReturn();
+        }
+
+    public Response makeDeleteRequest(String url, String header, String cookie, int eee){
+        return given()
+                .filter(new AllureRestAssured())
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                .delete("https://playground.learnqa.ru/api/user/"+eee)
+                .andReturn();
+    }
 }
