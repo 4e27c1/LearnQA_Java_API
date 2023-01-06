@@ -180,4 +180,44 @@ public class ApiCoreRequests {
                 .get("https://playground.learnqa.ru/api/user/"+eee)
                 .andReturn();
     }
+
+    @Step("Try to edit user data without authrization")
+    public Response editwithoutAuth(String url, Map<String, String> data){
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .put ("https://playground.learnqa.ru/api/user/2")
+                .andReturn();
+
+    }
+    @Step("Edit with wrong auth")
+    public Response editWithWrongAuth(String url, String header, String cookie, int eee){
+        return given()
+                .filter(new AllureRestAssured())
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                .put("https://playground.learnqa.ru/api/user/"+eee)
+                .andReturn();
+        }
+
+        @Step("Edit with broken email")
+    public Response makePUTRequestWithBrokenEmail(String url,String header,String cookie, Map<String, String> wrongEmail, int eee ){
+        return given()
+                .filter(new AllureRestAssured())
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                .body(wrongEmail)
+                .put("https://playground.learnqa.ru/api/user/"+eee)
+                .andReturn();
+        }
+        @Step ("Edit cuurent user with short username")
+    public Response makePUTRequestWithShortName(String url,String header,String cookie, Map<String, String> wrongUsername, int eee){
+        return given()
+                .filter(new AllureRestAssured())
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                .body(wrongUsername)
+                .put("https://playground.learnqa.ru/api/user/"+eee)
+                .andReturn();
+        }
 }
