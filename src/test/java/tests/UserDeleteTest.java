@@ -134,6 +134,16 @@ public class UserDeleteTest extends BaseTestcase {
                         eee
                 );
         Assertions.assertResponseTextEquals(responseDeleteUser,"");
+        //GET INFO FROM CREATED USER
+
+        Response responseGetInfoOtherUser = apiCoreRequests
+                .makeRequestForUserInfo(
+                        "https://playground.learnqa.ru/api/user/{id}",
+                        header,
+                        cookie,
+                        eee
+                );
+        Assertions.assertResponseTextEquals(responseGetInfoOtherUser, "User not found");
 
 
 
