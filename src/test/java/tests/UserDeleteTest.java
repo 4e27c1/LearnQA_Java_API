@@ -19,6 +19,7 @@ import java.util.Map;
 
 public class UserDeleteTest extends BaseTestcase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
+
     @Test
     @Description("This test tryes to delete user with authorization ")
     @DisplayName("DELETE Test negative, cant delete user id2")
@@ -46,6 +47,7 @@ public class UserDeleteTest extends BaseTestcase {
                         cookie
                 );
         Assertions.assertResponseTextEquals(responseDeleteUser2, "Please, do not delete test users with ID 1, 2, 3, 4 or 5.");
+
     }
     @Test
     @Description("This test tryes to delete user with authorization ")
