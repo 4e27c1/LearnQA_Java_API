@@ -1,6 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
+import io.qameta.allure.*;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -11,6 +11,9 @@ import lib.DataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +22,10 @@ public class UserDeleteTest extends BaseTestcase {
     @Test
     @Description("This test tryes to delete user with authorization ")
     @DisplayName("DELETE Test negative, cant delete user id2")
-    public void testDeleteUserWithID2() {
+    @Owner ("Akchurina AV")
+    @Severity(value = SeverityLevel.BLOCKER)
+
+    public void testDeleteUserWithID2()  {
 
         //AUTHRIZATION
         Map<String, String> authData = new HashMap<>();
